@@ -3,5 +3,6 @@ module.exports = {
   modalbg: document.querySelector('.bground'),
   modalBtn: document.querySelectorAll('.modal-btn'),
   formData: document.querySelectorAll('.formData'),
-  editNavIcon: document.querySelector('.icon')
+  editNavIcon: document.querySelector('.icon'),
+  closeModalBtn: document.querySelector('.bground')
 }
