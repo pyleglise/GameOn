@@ -193,7 +193,8 @@ label {
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
-  margin-bottom: 11px;
+  margin-bottom: 0.5em;
+	margin-top : 1em;
 }
 input {
   padding: 8px;
@@ -226,12 +227,12 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/* 
+
 input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
-} */
+}
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -325,13 +326,16 @@ input[data-error]::after {
 .btn-signup {
   background: #fe142f;
   display: block;
-  margin: 0 auto;
+  margin: 1em auto 0 auto;
   border-radius: 7px;
   font-size: 1rem;
   padding: 12px 82px;
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+.btn-valid{
+	background:green;
 }
 /* custom select styles */
 .custom-select {
@@ -389,6 +393,40 @@ input[data-error]::after {
   right: 0;
   z-index: 99;
 }
+
+.invalid{
+  border-color: #900;
+	box-shadow: 1px 2px 9px #900;
+  background-color: #FDD;
+}
+.valid{
+  border-color: rgb(0, 153, 38);
+	box-shadow: 1px 2px 9px #279e7a;
+  
+}
+
+
+/* Voici la mise en forme pour les erreurs */
+.error {
+	display: none;
+  width :fit-content;
+	text-align: left;
+	margin-left:2em;
+  padding: 0.3em;
+  font-size: 0.5em;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 0, 0);
+  border-radius: 0 5px 5px 5px;
+
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.error.active {
+	display: inline-block;
+  
+}
+
 
 /* Hide the items when the select box is closed: */
 .select-hide {
