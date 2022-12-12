@@ -62,7 +62,7 @@ birthdate.addEventListener('change', function () {
   }
   errorDisplayHandler(birthdate, birthdateValid, errorBirthdate, "Entrez une date !<br>La date de naissance ne peut pas être après aujourd'hui !")
 })
-
+ 
 quantity.addEventListener('change', function () {
   quantityValid = (!quantity.value == '') && (Number.isInteger(Number(quantity.value)) && (quantity.value > 0) && (quantity.value < 100))
   // console.log('Test du champ : ' + quantity.name + ' -> ' + quantityValid)
