@@ -1,6 +1,6 @@
 const {
   modalBtn, modalbg, editNavIcon, closeModalBtn, fullForm, firstName,
-  lastName, email, birthdate, quantity, locationCity, checkCondition, submitBtn,
+  lastName, email, birthdate, quantity, locationCity, checkCondition, submitBtn, modalContent,
   errorFirstName, errorLastName, errorBirthdate, errorEmail, errorLocation, errorCheckCondition, errorQuantity
 } = require('./domLinker')
 const { regExName, regExEmail } = require('./regExPaterns')
@@ -55,14 +55,13 @@ email.addEventListener('change', function () {
 })
 
 birthdate.addEventListener('change', function () {
-  console.log(birthdate.value)
   if (!(birthdate.value == '') || !(birthdate.value == undefined)) {
     const tmpBirthdate = new Date(birthdate.value)
     birthdateValid = (tmpBirthdate.getTime() < Date.now())
   }
   errorDisplayHandler(birthdate, birthdateValid, errorBirthdate, "Entrez une date !<br>La date de naissance ne peut pas être après aujourd'hui !")
 })
- 
+
 quantity.addEventListener('change', function () {
   quantityValid = (!quantity.value == '') && (Number.isInteger(Number(quantity.value)) && (quantity.value > 0) && (quantity.value < 100))
   // console.log('Test du champ : ' + quantity.name + ' -> ' + quantityValid)
@@ -108,8 +107,6 @@ function checkTextField (inputfield, regExPattern) {
   return fieldTest
 }
 
-fullForm[0].addEventListener('submit', (event) => logFormSubmit(event))
-
 function checkFormValid () {
   // console.log(checkConditionValid)
   // console.log(checkCondition.checked)
@@ -119,16 +116,28 @@ function checkFormValid () {
     submitBtn.classList += ' btn-valid'
   } else {
     formValid = false
-    // console.log('Formulaire NOT OK !')
     if (submitBtn.classList.contains('btn-valid')) {
       submitBtn.classList.remove('btn-valid')
     }
   }
 }
+// console.log(fullForm[0])
+fullForm[0].addEventListener('submit', (event) => logFormSubmit(event))
+
 const logFormSubmit = (event) => {
   event.preventDefault()
-  const date = new Date()
-  console.log('Formulaire envoyé ! Horodatage : ' + date.toString())
+  if (formValid) {
+    fullForm[0].submit()
+  }
+}
+// console.log(location.search.substring(1).split('&'))
 
-  // fullForm[0].submit()
+if (location.search.substring(1)) {
+  // console.log(location.search.substring(1).split('&')[7].split('=')[1])
+  if (location.search.substring(1).split('&')[7].split('=')[1]) {
+    modalContent.innerHTML = '<span class="close" ></span><div class="modal-body add-padding-big"><p>Merci pour votre inscription !</p></div><button class="btn-submit add-margin-btn" value="Fermer">Fermer</button>'
+    launchModal()
+    document.querySelector('.close').addEventListener('click', () => location.replace(location.pathname))
+    document.querySelector('.btn-submit').addEventListener('click', () => location.replace(location.pathname))
+  }
 }

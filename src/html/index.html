@@ -5,7 +5,8 @@
     <title>Reservation</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link
+    <style >@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shrikhand&display=swap") </style>
+		<link
       href="https://fonts.googleapis.com/css?family=DM+Sans"
       rel="stylesheet"
     />
@@ -69,7 +70,6 @@
                   type="text"
                   id="first"
                   name="first"
-                  
                 /><span id="errorFirstName" class="error" aria-live="polite"></span><br>
               </div>
               <div
@@ -183,6 +183,7 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
+									name="checkbox1"
                   checked
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
@@ -190,7 +191,7 @@
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <br><span id="errorCheckCondition" class="error" aria-live="polite"></span>
-                <input class="checkbox-input" type="checkbox" id="checkbox2" />
+                <input class="checkbox-input" type="checkbox" id="checkbox2" name="checkbox2"/>
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
                   Je souhaite être prévenu des prochains évènements.
@@ -202,6 +203,7 @@
                 type="submit"
                 value="C'est parti"
               />
+							<input hidden name="formsubmitted" value="true" />
             </form>
           </div>
         </div>

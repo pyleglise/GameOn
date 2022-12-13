@@ -1,3 +1,4 @@
+
 :root {
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
@@ -337,6 +338,15 @@ input[data-error]::after {
 .btn-valid{
 	background:green;
 }
+
+.add-padding-big{
+	padding: 9em 0;
+	text-align:center;
+}
+
+.add-margin-btn{
+	margin:2em auto ;
+}
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -408,14 +418,15 @@ input[data-error]::after {
 
 /* Voici la mise en forme pour les erreurs */
 .error {
+	font-family: 'Roboto';
 	display: none;
   width :fit-content;
 	text-align: left;
-	margin-left:2em;
-  padding: 0.3em;
-  font-size: 0.5em;
-  color: rgb(255, 255, 255);
-  background-color: rgb(255, 0, 0);
+	margin-left:0;
+  padding: 0em 0;
+  font-size: 10px;
+  color: rgb(255, 0,0);
+  /* background-color: rgb(255, 0, 0); */
   border-radius: 0 5px 5px 5px;
 
   -moz-box-sizing: border-box;
@@ -424,7 +435,6 @@ input[data-error]::after {
 
 .error.active {
 	display: inline-block;
-  
 }
 
 

@@ -7,6 +7,7 @@ module.exports = {
   fullForm: document.getElementsByName('reserve'),
   editNavIcon: document.querySelector('.icon'),
   closeModalBtn: document.querySelector('.close'),
+  modalContent: document.querySelector('.content'),
 
   // Input fields
   firstName: document.getElementById('first'),
