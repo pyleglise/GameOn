@@ -14,6 +14,7 @@ const sharedHtmlWebpackConf = (name) => {
   result.favicon = path.resolve(__dirname, './src/assets/Logo.png')
   result.template = path.resolve(__dirname, `./src/html/${name}.html`)
   result.filename = `${name}.html`
+  // result.inject = false
   return result
 }
 
@@ -24,8 +25,9 @@ const config = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].bundle.js',
-    publicPath: '/',
-    assetModuleFilename: 'src/assets/[name][ext]'
+    publicPath: '',
+    assetModuleFilename: 'assets/[name][ext]',
+    clean: true
   },
   devServer: {
     port: 8089,
@@ -47,6 +49,7 @@ const config = {
     // https://github.com/jantimon/html-webpack-plugin/blob/main/examples/custom-template/template.html
     rules: [
       // https://webpack.js.org/loaders/css-loader/
+
       {
         test: /\.css$/,
         use: [
@@ -57,15 +60,17 @@ const config = {
       // https://stackoverflow.com/questions/67432536/webpack-5-how-to-display-images-in-html-file
       {
         test: /\.(png|svg|jpg|jpeg|gif|otf|cur|mp4)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]'
+        }
       }
     ]
   },
-  devtool: 'eval-source-map'
+  devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : 'eval-source-map'
 }
 
 module.exports = (env, argv) => {
   console.log(`mode = ${argv.mode}, NODE_ENV = ${process.env.NODE_ENV}`)
-
   return config
 }

@@ -97,6 +97,8 @@ main {
   cursor: pointer;
 }
 
+
+
 .modal-btn:hover {
   background: #3876ac;
 }
@@ -271,17 +273,28 @@ input {
 }
 .btn-submit,
 .btn-signup {
+	
   background: #fe142f;
   display: block;
   margin: 1em auto 0 auto;
   border-radius: 7px;
   font-size: 14px;
-  padding: 12px 0;
+  /* padding: 12px 0; */
   color: #fff;
   cursor: pointer;
   border: 0;
-	width:40%;
+	/* width:40%; */
 }
+.btn-signup {
+	
+  outline: none;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  padding: 15px 23px;
+  margin: auto;
+  margin-top: 59px;
+}
+
 .btn-valid{
 	background:green;
 }
@@ -441,14 +454,7 @@ input {
   margin-top: 57px;
   padding: 0;
 }
-.btn-signup {
-  outline: none;
-  text-transform: capitalize;
-  font-size: 1.3rem;
-  padding: 15px 23px;
-  margin: 0;
-  margin-top: 59px;
-}
+
 .hero-img {
   grid-column: span 8;
 }

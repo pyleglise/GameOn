@@ -152,7 +152,7 @@ const checkFormValid = () => {
 // Manage the form after being sent and display the Thank You modal box
 if (location.search.substring(1)) {
   if (location.search.substring(1).split('&')[7].split('=')[1]) {
-    domLinker.modalContent.innerHTML = '<span class="close" ></span><div class="modal-body add-padding-big"><p>Merci pour votre inscription !</p></div><button class="btn-submit add-margin-btn" value="Fermer">Fermer</button>'
+    domLinker.modalContent.innerHTML = '<span class="close" ></span><div class="modal-body add-padding-big"><p>Merci pour votre inscription !</p></div><button class="btn-submit modal-btn add-margin-btn" value="Fermer">Fermer</button>'
     launchModal()
     document.querySelector('.close').addEventListener('click', () => location.replace(location.pathname))
     document.querySelector('.btn-submit').addEventListener('click', () => location.replace(location.pathname))
