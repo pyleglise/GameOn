@@ -72,5 +72,5 @@ const config = {
 
 module.exports = (env, argv) => {
   console.log(`mode = ${argv.mode}, NODE_ENV = ${process.env.NODE_ENV}`)
-3  return config
+  return config
 }
