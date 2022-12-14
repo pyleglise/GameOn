@@ -1,19 +1,78 @@
-const {
-  modalBtn, modalbg, editNavIcon, closeModalBtn, fullForm, firstName,
-  lastName, email, birthdate, quantity, locationCity, checkCondition, submitBtn, modalContent,
-  errorFirstName, errorLastName, errorBirthdate, errorEmail, errorLocation, errorCheckCondition, errorQuantity
-} = require('./domLinker')
+// Import variables declarations
+const domLinker = require('./domLinker')
+const errMsg = require('./errorMsg')
 const { regExName, regExEmail } = require('./regExPaterns')
-let formValid, firstNameValid, lastNameValid, emailValid, birthdateValid, quantityValid, locationValid, checkConditionValid
-formValid = firstNameValid = lastNameValid = emailValid = birthdateValid = quantityValid = locationValid = false
-checkConditionValid = true
 
-birthdate.max = new Date().toISOString().split('T')[0]
+// Local variables declarations and initialisation
+let formValid = false
+let firstNameValid = false
+let lastNameValid = false
+let emailValid = false
+let birthdateValid = false
+let quantityValid = false
+let locationValid = false
+let checkConditionValid = true
 
+// Set the max date on the form
+domLinker.birthdate.max = new Date().toISOString().split('T')[0]
+
+/** *  Events catching declaration  ***/
 // open edit nav event
-editNavIcon.addEventListener('click', () => editNav())
+domLinker.editNavIcon.addEventListener('click', () => editNav())
 
-// open edit nav
+// launch modal event
+domLinker.modalBtn.forEach(btn => btn.addEventListener('click', () => launchModal()))
+
+// close modal event
+domLinker.closeModalBtn.addEventListener('click', () => closeModal())
+
+// catch and test inputs in the form
+domLinker.firstName.addEventListener('input', function () {
+  firstNameValid = checkTextField(domLinker.firstName, regExName)
+  errorDisplayHandler(domLinker.firstName, firstNameValid, domLinker.errorFirstName, errMsg.errorFirstNameTxt)
+})
+domLinker.lastName.addEventListener('input', function () {
+  lastNameValid = checkTextField(domLinker.lastName, regExName)
+  errorDisplayHandler(domLinker.lastName, lastNameValid, domLinker.errorLastName, errMsg.errorLastNameTxt)
+})
+domLinker.email.addEventListener('input', function () {
+  emailValid = checkTextField(domLinker.email, regExEmail)
+  errorDisplayHandler(domLinker.email, emailValid, domLinker.errorEmail, errMsg.errorEmailTxt)
+})
+domLinker.birthdate.addEventListener('input', function () {
+  if ((domLinker.birthdate.value !== '') || (domLinker.birthdate.value !== undefined)) {
+    const tmpBirthdate = new Date(domLinker.birthdate.value)
+    birthdateValid = (tmpBirthdate.getTime() < Date.now())
+  }
+  errorDisplayHandler(domLinker.birthdate, birthdateValid, domLinker.errorBirthdate, errMsg.errorBirthdateTxt)
+})
+domLinker.quantity.addEventListener('input', function () {
+  quantityValid = ((domLinker.quantity.value) && (Number.isInteger(Number(domLinker.quantity.value))) && (domLinker.quantity.value >= 0) && (domLinker.quantity.value < 100))
+  console.log('Test du champ : ' + domLinker.quantity.name + ' = ' + domLinker.quantity.value + ' -> ' + domLinker.quantityValid)
+  errorDisplayHandler(domLinker.quantity, quantityValid, domLinker.errorQuantity, errMsg.errorQuantityTxt)
+})
+domLinker.locationCity.forEach(fieldItem => {
+  fieldItem.addEventListener('input', function () {
+    locationValid = fieldItem.checked === true
+    errorDisplayHandler(fieldItem, locationValid, domLinker.errorLocation, errMsg.errorLocationTxt)
+  })
+})
+domLinker.checkCondition.addEventListener('input', function () {
+  checkConditionValid = domLinker.checkCondition.checked
+  errorDisplayHandler(domLinker.checkCondition, checkConditionValid, domLinker.errorCheckCondition, errMsg.errorConditionTxt)
+})
+
+// Catch submit button click
+domLinker.fullForm[0].addEventListener('submit', (event) => {
+  event.preventDefault()
+  if (formValid) {
+    domLinker.fullForm[0].submit()
+  }
+})
+
+/**
+ * Responsive top menu activation
+ */
 const editNav = () => {
   const x = document.getElementById('myTopnav')
   if (x.className === 'topnav') {
@@ -23,66 +82,28 @@ const editNav = () => {
   }
 }
 
-// launch modal event
-modalBtn.forEach(btn => btn.addEventListener('click', () => launchModal()))
-
-// launch modal form
+/**
+ * Display modal form
+ */
 const launchModal = () => {
-  modalbg.style.display = 'block'
+  domLinker.modalbg.style.display = 'block'
 }
 
-// close modal event
-closeModalBtn.addEventListener('click', () => closeModal())
-
-// close modal form
+/**
+ * Close modal form
+ */
 const closeModal = () => {
-  modalbg.style.display = 'none'
+  domLinker.modalbg.style.display = 'none'
 }
 
-firstName.addEventListener('change', function () {
-  firstNameValid = checkTextField(firstName, regExName)
-  errorDisplayHandler(firstName, firstNameValid, errorFirstName, 'Le prénom doit comporter au moins deux caractères ! (ex : Paul)')
-})
-
-lastName.addEventListener('change', function () {
-  lastNameValid = checkTextField(lastName, regExName)
-  errorDisplayHandler(lastName, lastNameValid, errorLastName, 'Le nom doit comporter au moins deux caractères ! (ex : Lebon)')
-})
-
-email.addEventListener('change', function () {
-  emailValid = checkTextField(email, regExEmail)
-  errorDisplayHandler(email, emailValid, errorEmail, "L'adresse email n'est pas valide ! (ex : nom@domaine.fr)")
-})
-
-birthdate.addEventListener('change', function () {
-  if (!(birthdate.value == '') || !(birthdate.value == undefined)) {
-    const tmpBirthdate = new Date(birthdate.value)
-    birthdateValid = (tmpBirthdate.getTime() < Date.now())
-  }
-  errorDisplayHandler(birthdate, birthdateValid, errorBirthdate, "Entrez une date !<br>La date de naissance ne peut pas être après aujourd'hui !")
-})
-
-quantity.addEventListener('change', function () {
-  quantityValid = (!quantity.value == '') && (Number.isInteger(Number(quantity.value)) && (quantity.value > 0) && (quantity.value < 100))
-  // console.log('Test du champ : ' + quantity.name + ' -> ' + quantityValid)
-  errorDisplayHandler(quantity, quantityValid, errorQuantity, 'Entrez un nombre !<br>Le nombre de tournoi doit être compris entre 0 et 99 ')
-})
-
-locationCity.forEach(fieldItem => {
-  fieldItem.addEventListener('change', function () {
-    locationValid = fieldItem.checked === true
-    // console.log('Test du champ : ' + fieldItem.name + ' -> ' + locationValid)
-    errorDisplayHandler(fieldItem, locationValid, errorLocation, 'La localité est obligatoire !')
-  })
-})
-
-checkCondition.addEventListener('change', function () {
-  checkConditionValid = checkCondition.checked
-  // console.log('Test du champ : ' + checkCondition.name + ' -> ' + checkConditionValid)
-  errorDisplayHandler(checkCondition, checkConditionValid, errorCheckCondition, "Vous devez lire et accepter les condition d'utilisation !")
-})
-// console.log(locationCity)
-function errorDisplayHandler (inputField, inputValid, errorfield, textMessage) {
+/**
+ * Display error message when field completion is invalid and then determine if the entire form is valid or not
+ * @param {DOMElement} inputField - the input field related by the error
+ * @param {Boolean} inputValid - wether the input field is valid or not (so, display the error message or not)
+ * @param {DOMElement} errorField - the DOM element where to display the error message
+ * @param {String} textMessage - the error message to display
+ */
+const errorDisplayHandler = (inputField, inputValid, errorfield, textMessage) => {
   errorfield.innerHTML = ''
   errorfield.className = ''
   if (inputField.classList.contains('invalid')) {
@@ -98,44 +119,40 @@ function errorDisplayHandler (inputField, inputValid, errorfield, textMessage) {
   checkFormValid()
 }
 
-function checkTextField (inputfield, regExPattern) {
+/**
+ * Check if the input is valid according to the regexp - Returns boolean
+ * @param {DOMElement} inputField - the input field to test
+ * @param {RegEpx String} regExPattern - wether the input field is valid or not (so, display the error message or not)
+ */
+const checkTextField = (inputfield, regExPattern) => {
   let fieldTest = false
-  if (!inputfield.value == '') {
+  if ((inputfield.value !== '')) {
     fieldTest = regExPattern.test(inputfield.value)
   }
-  // console.log('Test du champ : ' + inputfield.name + ' -> ' + fieldTest)
   return fieldTest
 }
 
-function checkFormValid () {
-  // console.log(checkConditionValid)
-  // console.log(checkCondition.checked)
+/**
+ * Check if the entire for is valid and change the submit button style if valid
+ * Sets the formValid param to true if form valid
+  */
+const checkFormValid = () => {
   if (firstNameValid && lastNameValid && emailValid && birthdateValid && quantityValid && locationValid && checkConditionValid) {
     formValid = true
     // console.log('Formulaire OK !')
-    submitBtn.classList += ' btn-valid'
+    domLinker.submitBtn.classList += ' btn-valid'
   } else {
     formValid = false
-    if (submitBtn.classList.contains('btn-valid')) {
-      submitBtn.classList.remove('btn-valid')
+    if (domLinker.submitBtn.classList.contains('btn-valid')) {
+      domLinker.submitBtn.classList.remove('btn-valid')
     }
   }
 }
-// console.log(fullForm[0])
-fullForm[0].addEventListener('submit', (event) => logFormSubmit(event))
 
-const logFormSubmit = (event) => {
-  event.preventDefault()
-  if (formValid) {
-    fullForm[0].submit()
-  }
-}
-// console.log(location.search.substring(1).split('&'))
-
+// Manage the form after being sent and display the Thank You modal box
 if (location.search.substring(1)) {
-  // console.log(location.search.substring(1).split('&')[7].split('=')[1])
   if (location.search.substring(1).split('&')[7].split('=')[1]) {
-    modalContent.innerHTML = '<span class="close" ></span><div class="modal-body add-padding-big"><p>Merci pour votre inscription !</p></div><button class="btn-submit add-margin-btn" value="Fermer">Fermer</button>'
+    domLinker.modalContent.innerHTML = '<span class="close" ></span><div class="modal-body add-padding-big"><p>Merci pour votre inscription !</p></div><button class="btn-submit add-margin-btn" value="Fermer">Fermer</button>'
     launchModal()
     document.querySelector('.close').addEventListener('click', () => location.replace(location.pathname))
     document.querySelector('.btn-submit').addEventListener('click', () => location.replace(location.pathname))

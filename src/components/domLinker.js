@@ -1,5 +1,6 @@
+// Define DOM Elements
 module.exports = {
-// DOM Elements
+  // main elements
   modalbg: document.querySelector('.bground'),
   submitBtn: document.querySelector('.btn-submit'),
   modalBtn: document.querySelectorAll('.modal-btn'),
@@ -18,7 +19,7 @@ module.exports = {
   locationCity: document.getElementsByName('location'),
   checkCondition: document.getElementById('checkbox1'),
 
-  // error handling
+  // error handling elements
   errorFirstName: document.getElementById('errorFirstName'),
   errorLastName: document.getElementById('errorLastName'),
   errorEmail: document.getElementById('errorEmail'),
