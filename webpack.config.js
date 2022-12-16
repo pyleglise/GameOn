@@ -41,7 +41,8 @@ const config = {
     new HtmlWebpackPlugin(sharedHtmlWebpackConf('index', 'GameOn')),
     // Define global variable from NODE_ENV for the app
     new webpack.DefinePlugin({
-      DEBUG: process.env.NODE_ENV === 'development'
+      DEBUG: process.env.NODE_ENV === 'development',
+      VERSION: JSON.stringify(require('./package.json').version)
       // API_URL
     })
   ],
@@ -49,8 +50,16 @@ const config = {
     // https://github.com/jantimon/html-webpack-plugin/blob/main/examples/custom-template/template.html
     rules: [
       // https://webpack.js.org/loaders/css-loader/
-
       {
+        test: /\.(html)$/,
+        use: [
+          {
+            loader: 'html-loader'
+          }
+        ]
+      },
+      {
+
         test: /\.css$/,
         use: [
           'style-loader', // Creates `style` nodes from JS strings
