@@ -68,16 +68,18 @@ domLinker.fullForm[0].addEventListener('submit', (event) => {
   if (formValid) {
     domLinker.fullForm[0].submit()
   } else {
-    errorDisplayHandler(domLinker.firstName, firstNameValid, domLinker.errorFirstName, errMsg.errorFirstNameTxt)
-    errorDisplayHandler(domLinker.lastName, lastNameValid, domLinker.errorLastName, errMsg.errorLastNameTxt)
-    errorDisplayHandler(domLinker.email, emailValid, domLinker.errorEmail, errMsg.errorEmailTxt)
-    errorDisplayHandler(domLinker.birthdate, birthdateValid, domLinker.errorBirthdate, errMsg.errorBirthdateTxt)
-    errorDisplayHandler(domLinker.quantity, quantityValid, domLinker.errorQuantity, errMsg.errorQuantityTxt)
-    domLinker.locationCity.forEach(fieldItem => {
-      locationValid = fieldItem.checked === true
-      errorDisplayHandler(fieldItem, locationValid, domLinker.errorLocation, errMsg.errorLocationTxt)
-    })
-    errorDisplayHandler(domLinker.checkCondition, checkConditionValid, domLinker.errorCheckCondition, errMsg.errorConditionTxt)
+    if (!firstNameValid) errorDisplayHandler(domLinker.firstName, firstNameValid, domLinker.errorFirstName, errMsg.errorFirstNameTxt)
+    if (!lastNameValid) errorDisplayHandler(domLinker.lastName, lastNameValid, domLinker.errorLastName, errMsg.errorLastNameTxt)
+    if (!emailValid) errorDisplayHandler(domLinker.email, emailValid, domLinker.errorEmail, errMsg.errorEmailTxt)
+    if (!birthdateValid) errorDisplayHandler(domLinker.birthdate, birthdateValid, domLinker.errorBirthdate, errMsg.errorBirthdateTxt)
+    if (!quantityValid) errorDisplayHandler(domLinker.quantity, quantityValid, domLinker.errorQuantity, errMsg.errorQuantityTxt)
+    if (!locationValid) {
+      domLinker.locationCity.forEach(fieldItem => {
+        locationValid = fieldItem.checked === true
+        errorDisplayHandler(fieldItem, locationValid, domLinker.errorLocation, errMsg.errorLocationTxt)
+      })
+    }
+    if (!checkConditionValid) errorDisplayHandler(domLinker.checkCondition, checkConditionValid, domLinker.errorCheckCondition, errMsg.errorConditionTxt)
   }
 })
 
