@@ -47,7 +47,7 @@ domLinker.birthdate.addEventListener('input', function () {
   errorDisplayHandler(domLinker.birthdate, birthdateValid, domLinker.errorBirthdate, errMsg.errorBirthdateTxt)
 })
 domLinker.quantity.addEventListener('input', function () {
-  quantityValid = ((domLinker.quantity.value) && (Number.isInteger(Number(domLinker.quantity.value))) && (domLinker.quantity.value >= 0) && (domLinker.quantity.value < 100))
+  quantityValid = ((domLinker.quantity.value) && (Number.isInteger(Number(domLinker.quantity.value))) && (domLinker.quantity.value >= 1) && (domLinker.quantity.value < 100))
   console.log('Test du champ : ' + domLinker.quantity.name + ' = ' + domLinker.quantity.value + ' -> ' + domLinker.quantityValid)
   errorDisplayHandler(domLinker.quantity, quantityValid, domLinker.errorQuantity, errMsg.errorQuantityTxt)
 })
@@ -67,6 +67,17 @@ domLinker.fullForm[0].addEventListener('submit', (event) => {
   event.preventDefault()
   if (formValid) {
     domLinker.fullForm[0].submit()
+  } else {
+    errorDisplayHandler(domLinker.firstName, firstNameValid, domLinker.errorFirstName, errMsg.errorFirstNameTxt)
+    errorDisplayHandler(domLinker.lastName, lastNameValid, domLinker.errorLastName, errMsg.errorLastNameTxt)
+    errorDisplayHandler(domLinker.email, emailValid, domLinker.errorEmail, errMsg.errorEmailTxt)
+    errorDisplayHandler(domLinker.birthdate, birthdateValid, domLinker.errorBirthdate, errMsg.errorBirthdateTxt)
+    errorDisplayHandler(domLinker.quantity, quantityValid, domLinker.errorQuantity, errMsg.errorQuantityTxt)
+    domLinker.locationCity.forEach(fieldItem => {
+      locationValid = fieldItem.checked === true
+      errorDisplayHandler(fieldItem, locationValid, domLinker.errorLocation, errMsg.errorLocationTxt)
+    })
+    errorDisplayHandler(domLinker.checkCondition, checkConditionValid, domLinker.errorCheckCondition, errMsg.errorConditionTxt)
   }
 })
 
