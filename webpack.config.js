@@ -49,7 +49,6 @@ const config = {
   module: {
     // https://github.com/jantimon/html-webpack-plugin/blob/main/examples/custom-template/template.html
     rules: [
-      // https://webpack.js.org/loaders/css-loader/
       {
         test: /\.(html)$/,
         use: [
@@ -58,8 +57,8 @@ const config = {
           }
         ]
       },
+      // https://webpack.js.org/loaders/css-loader/
       {
-
         test: /\.css$/,
         use: [
           'style-loader', // Creates `style` nodes from JS strings
