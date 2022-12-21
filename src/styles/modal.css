@@ -408,7 +408,9 @@ input {
   border: 0;
 }
 
-
+.btn-valid{
+  background-color: #279e7a;
+}
 
 .add-padding-big{
 	padding: 9em 0;
